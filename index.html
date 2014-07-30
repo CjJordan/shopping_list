@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Shopping List</title>
+</head>
+<body>
+    <header>
+        <div id="header-center"></div>
+    </header>
+     <div id="list-top">
+        <input type="text" size="30" placeholder="+ Add new item and press enter"></input>
+    </div>
+    <div id="list-mid">
+        <ul>
+        </ul>
+        <div id="reset-button"></div>
+    </div>
+    <div id="list-bottom">
+        
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+             //on enter new item, add new item and refresh input placeholder text
+            $("input").keypress(function(e){
+                if (e.which == 13) {
+                    var new_item = $(this).val();
+                    $("ul").append("<li>" + new_item + "<span class=\"complete_button\"></span></li>");
+                    $(this).val("");
+                }
+                
+                //on click complete_button, change li to complete
+                $(".complete_button").on("click", function(){
+                    $(this).closest("li").addClass("complete");
+                    
+                    //on click delete_button, delete li
+                    $(".complete > .complete_button").on("click", function(){
+                        $(this).closest("li").remove();
+                    });
+                });
+            });
+            
+            //on click reset_button, clear list
+                $("#reset-button").on("click", function(){
+                    $(this).closest("ul").empty();
+                });
+        });
+    </script>
+</body>
+</html>
